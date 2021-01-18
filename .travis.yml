@@ -16,7 +16,7 @@ before_script:
 script:
   - docker --version # print the version for logging
   - docker build -t reverse-proxy-test .
-  - docker tag simple-reverse-proxy badrgharib/reverse-proxy-test:latest
+  - docker tag reverse-proxy-test badrgharib/reverse-proxy-test:latest
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
