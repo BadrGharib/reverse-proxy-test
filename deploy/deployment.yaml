@@ -1,19 +1,22 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    service: reverseproxy
   name: reverseproxy
+  labels:
+    app: reverseproxy
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reverseproxy
   template:
     metadata:
       labels:
-        service: reverseproxy
+        app: reverseproxy
     spec:
       containers:
-      - image: YOUR_DOCKER_HUB/simple-reverse-proxy
-        name: reverseproxy
+      - name: reverseproxy
+        image: badrgharib/reverse-proxy-test:latest
         imagePullPolicy: Always          
         resources:
           requests:
@@ -21,7 +24,7 @@ spec:
             cpu: "250m"
           limits:
             memory: "1024Mi"
-            cpu: "500m"       
+            cpu: "500m"    
         ports:
         - containerPort: 8080
       restartPolicy: Always
